@@ -96,7 +96,6 @@ function checkCoinsArray(liveCoinsToShow, symbol, id) {
     return;
   }
 
-
   if (liveCoinsToShow.length >= 5) {
     // toggleCheck.removeAttribute("aria-checked");
     showModal(liveCoinsToShow, coin);
@@ -142,20 +141,18 @@ function removeCoin(id, symbol) {
 
   if (coinsIndex !== -1) {
     liveCoinsToShow.splice(coinsIndex, 1);
-    coinInModal.setAttribute("aria-checked", "false");
-    console.log(liveCoinsToShow);
-    return;
+    coinInModal.setAttribute("aria-checked", "true");
 
+    console.log(liveCoinsToShow);
+    exmpModal.hide();
+    return;
   } else {
     coinInModal.setAttribute("aria-checked", "true");
     liveCoinsToShow.push(coin);
-
   }
 
   console.log(liveCoinsToShow);
 }
-
-
 
 function closeModal() {}
 
