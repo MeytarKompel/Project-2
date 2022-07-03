@@ -1,0 +1,95 @@
+.parallax {
+  background-image: url("https://static.vecteezy.com/system/resources/previews/000/683/025/non_2x/cryptocurrency-concept-background.jpg");
+  min-height: 250px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.cryptoHead {
+  color: wheat;
+}
+
+.mainBox {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto auto;
+  margin-left: 10px;
+  margin-right: 10px;
+  justify-items: center;
+}
+
+#cryptoCurrencyCard {
+  margin-top: 10px;
+}
+.cryptoImage {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+nav {
+  margin-bottom: 50px;
+  margin-left: 12px;
+}
+
+.form-switch {
+  margin-left: 230px;
+  margin-bottom: -1.875rem;
+}
+
+.card-body {
+  margin-top: 10px;
+  margin-right: 15px;
+}
+
+.card {
+  align-items: baseline;
+}
+
+.nav-item {
+  border: 1px solid black;
+  border-radius: 3px;
+  margin: 2px;
+}
+
+.nav-item:hover {
+  color: white !important;
+  background-color: cornflowerblue;
+}
+
+.loaderContainer {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  border: 5px solid black;
+  border-bottom-color: magenta;
+  border-radius: 50%;
+  display: block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-left: 50%;
+  z-index: 1000;
+}
+
+/* .loader {
+    position: static;
+
+    } */
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loaderContainer.hidden {
+  display: none !important;
+}
