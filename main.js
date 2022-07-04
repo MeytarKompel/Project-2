@@ -19,7 +19,7 @@ fetch(`https://api.coingecko.com/api/v3/coins/`, {
         `<div id="cryptoCurrencyCard" class="card" style="width: 18rem;">
           <div class="card-body">
           <div class="form-check form-switch">
-             <input onclick="addToggledCoins('${i.symbol}', '${i.id}')" class="form-check-input" type="checkbox" role="switch" id="toggleCheck${i.id}" aria-checked="false">
+             <input onclick="addToggledCoins('${i.symbol}', '${i.id}')" class="form-check-input" type="checkbox" role="switch" id="toggle-Check-${i.id}" aria-checked="false">
              <label class="form-check-label" for="toggleCheck${i.id}"></label>
            </div>
             <h5 class="card-title">${i.symbol}</h5>
@@ -96,13 +96,14 @@ function checkCoinsArray(liveCoinsToShow, symbol, id) {
     return;
   }
 
-  if (liveCoinsToShow.length >= 5) {
+  console.warn(liveCoinsToShow.length);
+  liveCoinsToShow.push(coin);
+  if (liveCoinsToShow.length >= 6) {
     // toggleCheck.removeAttribute("aria-checked");
     showModal(liveCoinsToShow, coin);
-  } else {
-    liveCoinsToShow.push(coin);
-    // toggleCheck.setAttribute("aria-checked", "true")
   }
+    // toggleCheck.setAttribute("aria-checked", "true")
+
 }
 
 // Toggled coins modal
@@ -112,21 +113,22 @@ var exmpModal = new bootstrap.Modal(document.getElementById("coinsModal"));
 
 function showModal(liveCoinsToShow) {
   console.log(liveCoinsToShow);
-  liveCoinsToShow.map((i) => {
+  modalBody.innerHTML= ``;
+  for (let i = 0; i < 5; i++) {
     modalBody.innerHTML += `<div id="cryptoCurrencyCard" class="card" style="width: 18rem;">
       <div class="card-body">
       <div class="form-check form-switch">
-        <input onclick="removeCoin('${i.id}', '${i.symbol}')" class="form-check-input" type="checkbox" role="switch" id="coinToggeledInModal${i.id}" aria-checked="true" checked>
-        <label class="form-check-label" for="toggleCheck${i.id}"></label>
+        <input onclick="removeCoin('${liveCoinsToShow[i].id}', '${liveCoinsToShow[i].symbol}')" class="form-check-input" type="checkbox" role="switch" id="coinToggeledInModal${liveCoinsToShow[i].id}" aria-checked="true" checked>
+        <label class="form-check-label" for="toggleCheck${liveCoinsToShow[i].id}"></label>
       </div>
-      <h5 class="card-title">${i.symbol}</h5>
-      <p class="card-text">${i.id}</p>
-      <div class="collapse" id="${i.symbol}"></div>
+      <h5 class="card-title">${liveCoinsToShow[i].symbol}</h5>
+      <p class="card-text">${liveCoinsToShow[i].id}</p>
+      <div class="collapse" id="${liveCoinsToShow[i].symbol}"></div>
       </div>
     </div>`;
 
     exmpModal.toggle();
-  });
+  };
 }
 
 function removeCoin(id, symbol) {
@@ -154,7 +156,10 @@ function removeCoin(id, symbol) {
   console.log(liveCoinsToShow);
 }
 
-function closeModal() {}
+function closeModal() {
+    exmpModal.hide();
+
+}
 
 // Searching for specific coin
 let coinToShow = "";
