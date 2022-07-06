@@ -19,7 +19,7 @@ fetch(`https://api.coingecko.com/api/v3/coins/`, {
         `<div id="cryptoCurrencyCard" class="card" style="width: 18rem;">
           <div class="card-body">
           <div class="form-check form-switch">
-             <input onclick="addToggledCoins('${i.symbol}', '${i.id}')" class="form-check-input" type="checkbox" role="switch" id="toggle-Check-${i.id}" aria-checked="true" unchecked">
+             <input onclick="addToggledCoins('${i.symbol}', '${i.id}')" class="form-check-input" type="checkbox" role="switch" id="toggle-Check-${i.id}" aria-checked="true">
              <label class="form-check-label" for="toggle-Check-${i.id}"></label>
            </div>
             <h5 class="card-title">${i.symbol}</h5>
@@ -73,9 +73,12 @@ function moreInfoData(id, symbol) {
 
 //Toggeled Coins
 function addToggledCoins(id, symbol) {
-  const a = document.getElementById(`toggle-Check-${id}`);
+    // const toggleButton = new bootstrap.Modal(document.getElementById(`toggle-Check-${symbol}`));
+    // toggleButton.toggle()
+  const a = document.getElementById(`toggle-Check-${symbol}`);
   console.log(a);
-  a.setAttribute("unchecked");
+  a.setAttribute("checked", "true")
+//   a.setAttribute("checked", "false");
 
   console.log(symbol);
   checkCoinsArray(liveCoinsToShow, symbol, id);
@@ -95,10 +98,17 @@ function checkCoinsArray(liveCoinsToShow, symbol, id) {
   // remove coin from array
   if (coinsIndex !== -1) {
     liveCoinsToShow.splice(coinsIndex, 1);
+    const a = document.getElementById(`toggle-Check-${symbol}`);
+    console.log(a);
+    a.setAttribute("checked", "false")
+  
     return;
   }
 
   liveCoinsToShow.push(coin);
+  const a = document.getElementById(`toggle-Check-${symbol}`);
+  console.log(a);
+  a.setAttribute("checked", "true")
   if (liveCoinsToShow.length >= 6) {
     showModal(liveCoinsToShow, coin);
   }
@@ -116,7 +126,7 @@ function showModal(liveCoinsToShow) {
     modalBody.innerHTML += `<div id="cryptoCurrencyCard" class="card" style="width: 18rem;">
       <div class="card-body">
       <div class="form-check form-switch">
-        <input onclick="removeCoin('${liveCoinsToShow[i].id}', '${liveCoinsToShow[i].symbol}')" class="form-check-input" type="checkbox" role="switch" data-id="${liveCoinsToShow[i].symbol}"  checked>
+        <input onclick="removeCoin('${liveCoinsToShow[i].id}', '${liveCoinsToShow[i].symbol}')" class="form-check-input" type="checkbox" role="switch" id="a-${liveCoinsToShow[i].symbol}" checked="true">
         <label class="form-check-label" for="data-id-${liveCoinsToShow[i].symbol}"></label>
       </div>
       <h5 class="card-title">${liveCoinsToShow[i].symbol}</h5>
@@ -140,9 +150,15 @@ function removeCoin(id, symbol) {
 
   if (coinsIndex !== -1) {
     liveCoinsToShow.splice(coinsIndex, 1);
-
+    const b= document.getElementById(`toggle-Check-${symbol}`);
+    console.log(b);
+    b.setAttribute("checked", "false");
+    const a = document.getElementById(`a-${symbol}`);
+    console.log(a);
+    a.setAttribute("checked", "false");
     console.log(liveCoinsToShow);
     exmpModal.hide();
+    
     return;
   } else {
     liveCoinsToShow.push(coin);
@@ -163,8 +179,8 @@ function searchCoin() {
   const coinToSearch = coinSearch.value;
   const foundedCoin = cryptoArray.find((coin) => coin.symbol === coinToSearch);
   console.log(foundedCoin);
-  if(!foundedCoin){
-    alert("Enter correct symbol!")
+  if (!foundedCoin) {
+    alert("Enter correct symbol!");
   }
   loadSpinner.classList.add("hidden");
   coinToShow = `<div id="searchedCoin" class="card" style="width: 18rem;">
