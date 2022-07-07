@@ -6,7 +6,7 @@ let cryptoArray = [];
 const loadSpinner = document.getElementById("loaderContainer");
 
 // Fetching API and show all crypto coins
-fetch(`https://api.coingecko.com/api/v3/coins/`, {
+fetch(`https://api.coingecko.com/api/v3/coins/list`, {
   method: "GET",
 })
   .then((res) => res.json())
@@ -27,7 +27,7 @@ fetch(`https://api.coingecko.com/api/v3/coins/`, {
             <button onclick="moreInfoData('${i.id}', '${i.symbol}')" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${i.symbol}" aria-expanded="false" aria-controls="${i.symbol}">
               More Info
             </button>
-            <div class="collapse" id="${i.symbol}"></div>
+            <div class="collapse" id="coin-${i.symbol}"></div>
           </div>
        </div>`
     );
@@ -37,6 +37,11 @@ fetch(`https://api.coingecko.com/api/v3/coins/`, {
 // Fetching coins and show the relevant info by clicking "More Info" button
 function moreInfoData(id, symbol) {
   console.log(id, symbol);
+  const collapse = document.getElementById(`coin-${symbol}`);
+  if(collapse.classList.contains("show")){
+    collapse.classList.remove("show", "hidden");
+  }
+  else {
   loadSpinner.classList.remove("hidden");
 
   const cryptoUrlData = `https://api.coingecko.com/api/v3/coins/${id}`;
@@ -67,19 +72,15 @@ function moreInfoData(id, symbol) {
 
       console.log(coinsCache);
 
-      document.getElementById(symbol).innerHTML = cryptoData;
+      collapse.innerHTML = cryptoData;
+      collapse.classList.add("show");
+      
     });
+}
 }
 
 //Toggeled Coins
 function addToggledCoins(id, symbol) {
-    // const toggleButton = new bootstrap.Modal(document.getElementById(`toggle-Check-${symbol}`));
-    // toggleButton.toggle()
-  const a = document.getElementById(`toggle-Check-${symbol}`);
-  console.log(a);
-  a.setAttribute("checked", "true")
-//   a.setAttribute("checked", "false");
-
   console.log(symbol);
   checkCoinsArray(liveCoinsToShow, symbol, id);
   console.log(liveCoinsToShow);
@@ -97,18 +98,11 @@ function checkCoinsArray(liveCoinsToShow, symbol, id) {
 
   // remove coin from array
   if (coinsIndex !== -1) {
-    liveCoinsToShow.splice(coinsIndex, 1);
-    const a = document.getElementById(`toggle-Check-${symbol}`);
-    console.log(a);
-    a.setAttribute("checked", "false")
-  
+    liveCoinsToShow.splice(coinsIndex, 1);  
     return;
   }
 
   liveCoinsToShow.push(coin);
-  const a = document.getElementById(`toggle-Check-${symbol}`);
-  console.log(a);
-  a.setAttribute("checked", "true")
   if (liveCoinsToShow.length >= 6) {
     showModal(liveCoinsToShow, coin);
   }
@@ -126,7 +120,7 @@ function showModal(liveCoinsToShow) {
     modalBody.innerHTML += `<div id="cryptoCurrencyCard" class="card" style="width: 18rem;">
       <div class="card-body">
       <div class="form-check form-switch">
-        <input onclick="removeCoin('${liveCoinsToShow[i].id}', '${liveCoinsToShow[i].symbol}')" class="form-check-input" type="checkbox" role="switch" id="a-${liveCoinsToShow[i].symbol}" checked="true">
+        <input onclick="removeCoin('${liveCoinsToShow[i].id}', '${liveCoinsToShow[i].symbol}')" class="form-check-input" type="checkbox" role="switch" id="a-${liveCoinsToShow[i].symbol}" checked>
         <label class="form-check-label" for="data-id-${liveCoinsToShow[i].symbol}"></label>
       </div>
       <h5 class="card-title">${liveCoinsToShow[i].symbol}</h5>
@@ -152,10 +146,11 @@ function removeCoin(id, symbol) {
     liveCoinsToShow.splice(coinsIndex, 1);
     const b= document.getElementById(`toggle-Check-${symbol}`);
     console.log(b);
-    b.setAttribute("checked", "false");
-    const a = document.getElementById(`a-${symbol}`);
-    console.log(a);
-    a.setAttribute("checked", "false");
+    b.checked= false;
+    // b.setAttribute("checked", "false");
+    // const a = document.getElementById(`a-${symbol}`);
+    // console.log(a);
+    // a.setAttribute("checked", "false");
     console.log(liveCoinsToShow);
     exmpModal.hide();
     
