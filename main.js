@@ -6,17 +6,19 @@ let cryptoArray = [];
 const loadSpinner = document.getElementById("loaderContainer");
 
 // Fetching API and show all crypto coins
-fetch(`https://api.coingecko.com/api/v3/coins/list`, {
-  method: "GET",
-})
-  .then((res) => res.json())
-  .then((res) => {
-    console.log(res);
-    cryptoArray = res;
-    loadSpinner.classList.add("hidden");
-    const htmlCards = res.map(
-      (i) =>
-        `<div id="cryptoCurrencyCard" class="card" style="width: 18rem;">
+
+function getMain() {
+  fetch(`https://api.coingecko.com/api/v3/coins/list`, {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      cryptoArray = res;
+      loadSpinner.classList.add("hidden");
+      const htmlCards = res.map(
+        (i) =>
+          `<div id="cryptoCurrencyCard" class="card" style="width: 18rem;">
           <div class="card-body">
           <div class="form-check form-switch">
              <input onclick="addToggledCoins('${i.symbol}', '${i.id}')" class="form-check-input" type="checkbox" role="switch" id="toggle-Check-${i.id}" aria-checked="true">
@@ -30,27 +32,27 @@ fetch(`https://api.coingecko.com/api/v3/coins/list`, {
             <div class="collapse" id="coin-${i.symbol}"></div>
           </div>
        </div>`
-    );
-    document.getElementById("mainBox").innerHTML = htmlCards.join("");
-  });
+      );
+      document.getElementById("mainBox").innerHTML = htmlCards.join("");
+    });
+}
 
 // Fetching coins and show the relevant info by clicking "More Info" button
 function moreInfoData(id, symbol) {
   console.log(id, symbol);
   const collapse = document.getElementById(`coin-${symbol}`);
-  if(collapse.classList.contains("show")){
+  if (collapse.classList.contains("show")) {
     collapse.classList.remove("show", "hidden");
-  }
-  else {
-  loadSpinner.classList.remove("hidden");
+  } else {
+    loadSpinner.classList.remove("hidden");
 
-  const cryptoUrlData = `https://api.coingecko.com/api/v3/coins/${id}`;
-  fetch(cryptoUrlData)
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res);
-      loadSpinner.classList.add("hidden");
-      const cryptoData = `<div class="card card-body">
+    const cryptoUrlData = `https://api.coingecko.com/api/v3/coins/${id}`;
+    fetch(cryptoUrlData)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        loadSpinner.classList.add("hidden");
+        const cryptoData = `<div class="card card-body">
         <img class="cryptoImage" src="${res.image.small}">
         </br>
         <p>USD: ${res.market_data.current_price.usd}$</p>
@@ -59,24 +61,23 @@ function moreInfoData(id, symbol) {
         </br>
         <p>ILS: ${res.market_data.current_price.ils}₪</p>
       </div>`;
-      console.log(cryptoData);
-      console.log(symbol);
+        console.log(cryptoData);
+        console.log(symbol);
 
-      if (coinsCache[id]) {
-        console.log("cache", coinsCache[id]);
-      } else {
-        console.log("api", res);
-        coinsCache[id] = res;
-        setTimeout(() => delete coinsCache[id], 120000);
-      }
+        if (coinsCache[id]) {
+          console.log("cache", coinsCache[id]);
+        } else {
+          console.log("api", res);
+          coinsCache[id] = res;
+          setTimeout(() => delete coinsCache[id], 120000);
+        }
 
-      console.log(coinsCache);
+        console.log(coinsCache);
 
-      collapse.innerHTML = cryptoData;
-      collapse.classList.add("show");
-      
-    });
-}
+        collapse.innerHTML = cryptoData;
+        collapse.classList.add("show");
+      });
+  }
 }
 
 //Toggeled Coins
@@ -98,12 +99,15 @@ function checkCoinsArray(liveCoinsToShow, symbol, id) {
 
   // remove coin from array
   if (coinsIndex !== -1) {
-    liveCoinsToShow.splice(coinsIndex, 1);  
+    liveCoinsToShow.splice(coinsIndex, 1);
     return;
   }
 
   liveCoinsToShow.push(coin);
   if (liveCoinsToShow.length >= 6) {
+    document.getElementById(
+      `toggle-Check-${liveCoinsToShow[5].symbol}`
+    ).checked = false;
     showModal(liveCoinsToShow, coin);
   }
 }
@@ -144,16 +148,16 @@ function removeCoin(id, symbol) {
 
   if (coinsIndex !== -1) {
     liveCoinsToShow.splice(coinsIndex, 1);
-    const b= document.getElementById(`toggle-Check-${symbol}`);
-    console.log(b);
-    b.checked= false;
-    // b.setAttribute("checked", "false");
-    // const a = document.getElementById(`a-${symbol}`);
-    // console.log(a);
-    // a.setAttribute("checked", "false");
+    const toggleSwitcher = document.getElementById(`toggle-Check-${symbol}`);
+    console.log(toggleSwitcher);
+    toggleSwitcher.checked = false;
     console.log(liveCoinsToShow);
+    const toggleSwitcherOn = document.getElementById(
+      `toggle-Check-${liveCoinsToShow[4].symbol}`
+    );
+    toggleSwitcherOn.checked = true;
     exmpModal.hide();
-    
+
     return;
   } else {
     liveCoinsToShow.push(coin);
@@ -194,4 +198,11 @@ function searchCoin() {
 </div>`;
   document.getElementById("mainBox").innerHTML = coinToShow;
   console.log(coinToShow);
+}
+
+async function getAbout() {
+  loadSpinner.classList.remove("hidden");
+  let res = await fetch("./about.html");
+  document.documentElement.innerHTML = await res.text();
+  loadSpinner.classList.add("hidden");
 }

@@ -21,7 +21,8 @@
 }
 
 #cryptoCurrencyCard {
-  margin-top: 10px;
+  margin: 1em;
+  width: 13rem;
 }
 .cryptoImage {
   display: inline-block;
