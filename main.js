@@ -1,13 +1,12 @@
-const crypto = document.getElementById("mainBox");
-
 const liveCoinsToShow = [];
 const coinsCache = {};
 let cryptoArray = [];
 const loadSpinner = document.getElementById("loaderContainer");
 
 // Fetching API and show all crypto coins
-
+// const crypto = document.getElementById("mainBox");
 function getMain() {
+loadSpinner.classList.remove("hidden");
   fetch(`https://api.coingecko.com/api/v3/coins/list`, {
     method: "GET",
   })
@@ -182,18 +181,19 @@ function searchCoin() {
     alert("Enter correct symbol!");
   }
   loadSpinner.classList.add("hidden");
-  coinToShow = `<div id="searchedCoin" class="card" style="width: 18rem;">
+  coinToShow = 
+  `<div id="searchedCoin" class="card" style="width: 18rem;">
   <div class="card-body">
   <div class="form-check form-switch">
-     <input onclick="addToggledCoins('${foundedCoin.symbol}', '${foundedCoin.id}')" class="form-check-input" type="checkbox" role="switch" id="toggleCheck${foundedCoin.id}" aria-checked="false">
-     <label class="form-check-label" for="toggleCheck${foundedCoin.id}"></label>
+     <input onclick="addToggledCoins('${foundedCoin.symbol}', '${foundedCoin.id}')" class="form-check-input" type="checkbox" role="switch" id="toggle-Check-${foundedCoin.id}" aria-checked="true">
+     <label class="form-check-label" for="toggle-Check-${foundedCoin.id}"></label>
    </div>
     <h5 class="card-title">${foundedCoin.symbol}</h5>
     <p class="card-text">${foundedCoin.id}</p>
     <button onclick="moreInfoData('${foundedCoin.id}', '${foundedCoin.symbol}')" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${foundedCoin.symbol}" aria-expanded="false" aria-controls="${foundedCoin.symbol}">
       More Info
     </button>
-    <div class="collapse" id="${foundedCoin.symbol}"></div>
+    <div class="collapse" id="coin-${foundedCoin.symbol}"></div>
   </div>
 </div>`;
   document.getElementById("mainBox").innerHTML = coinToShow;
@@ -201,7 +201,7 @@ function searchCoin() {
 }
 
 async function getAbout() {
-  loadSpinner.classList.remove("hidden");
+loadSpinner.classList.remove("hidden");
   let res = await fetch("./about.html");
   document.documentElement.innerHTML = await res.text();
   loadSpinner.classList.add("hidden");

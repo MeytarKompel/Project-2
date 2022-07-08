@@ -7,7 +7,7 @@
     <title>Crypto Currency</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body onload="getAbout()">
     <section class="parallax">
       <h1 class="cryptoHead">Cryptonite</h1>
     </section>
@@ -15,7 +15,29 @@
 
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <a class="navbar-brand" href="hamburgerNavbar">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#hamburgerNavbar"
+          aria-controls="hamburgerNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+        <div class="collapse navbar-collapse" id="hamburgerNavbar">
+            <a class="navbar-brand" href="hamburgerNavbar">Navbar</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#hamburgerNavbar"
+              aria-controls="hamburgerNavbar"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="index.html"
@@ -50,11 +72,25 @@
         </div>
       </div>
     </nav>
-
+    <div class="loaderContainer" id="loaderContainer">
+        <div class="loader" id="loadSpinner"></div>
+      </div>
     <main>
-      <div class="loaderContainer" id="loaderContainer"></div>
-      <div id="aboutBox">
-        <p>Hello</p>
+      <div class="aboutContainer" id="aboutBox">
+        <p>Hello!</p>
+        <br />
+        <p>My name is Meytar Kompel, I'm 24 years old from Bat-Hefer
+            <br/>
+            I'm studying Full-Stack Development in John Bryce Academy
+        </p>
+        <br/>
+        <p>
+            My project is about Cryptonite Currencies.
+            <br/>
+            In the project you can see the Currency of Crypto Coin in Dollars, Euros and Israeli Shekels.
+            <br/>
+            Have nice exploring 😄 
+        </p>
       </div>
     </main>
 
