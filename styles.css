@@ -1,6 +1,7 @@
 .parallax {
-  background-image: url("https://static.vecteezy.com/system/resources/previews/000/683/025/non_2x/cryptocurrency-concept-background.jpg");
+  background-image: url("./Assets/Cryptocurrency_logos.jpeg");
   min-height: 250px;
+  max-height: 250px;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -9,6 +10,7 @@
 
 .cryptoHead {
   color: wheat;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .mainBox {
@@ -71,7 +73,7 @@ nav {
   width: 48px;
   height: 48px;
   border: 5px solid black;
-  border-bottom-color: magenta;
+  border-bottom-color: #ea15cb;
   border-radius: 50%;
   display: block;
   box-sizing: border-box;
@@ -80,10 +82,6 @@ nav {
   z-index: 1000;
 }
 
-/* .loader {
-    position: static;
-
-    } */
 
 @keyframes rotation {
   0% {
@@ -113,3 +111,32 @@ nav {
   --bs-btn-disabled-bg: #22ddda;
   --bs-btn-disabled-border-color: #22ddda;
 }
+
+.btn.btn-outline-success {
+  --bs-btn-color: #db8524;
+  --bs-btn-border-color: #db8524;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #db8524;
+  --bs-btn-hover-border-color: #db8524;
+  --bs-btn-focus-shadow-rgb: 25, 135, 84;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #db8524;
+  --bs-btn-active-border-color: #db8524;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #db8524;
+  --bs-btn-disabled-bg: transparent;
+  --bs-gradient: none;
+}
+
+
+.aboutContainer{
+    margin-left: 10px;
+}
+
+.meytarPhoto{
+    height: 350px;
+    width: 250px;
+}
+
+
+

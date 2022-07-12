@@ -6,7 +6,7 @@ const loadSpinner = document.getElementById("loaderContainer");
 // Fetching API and show all crypto coins
 // const crypto = document.getElementById("mainBox");
 function getMain() {
-loadSpinner.classList.remove("hidden");
+  loadSpinner.classList.remove("hidden");
   fetch(`https://api.coingecko.com/api/v3/coins/list`, {
     method: "GET",
   })
@@ -181,8 +181,7 @@ function searchCoin() {
     alert("Enter correct symbol!");
   }
   loadSpinner.classList.add("hidden");
-  coinToShow = 
-  `<div id="searchedCoin" class="card" style="width: 18rem;">
+  coinToShow = `<div id="searchedCoin" class="card" style="width: 18rem;">
   <div class="card-body">
   <div class="form-check form-switch">
      <input onclick="addToggledCoins('${foundedCoin.symbol}', '${foundedCoin.id}')" class="form-check-input" type="checkbox" role="switch" id="toggle-Check-${foundedCoin.id}" aria-checked="true">
@@ -201,8 +200,8 @@ function searchCoin() {
 }
 
 async function getAbout() {
-loadSpinner.classList.remove("hidden");
+  await loadSpinner.classList.remove("hidden");
   let res = await fetch("./about.html");
   document.documentElement.innerHTML = await res.text();
-  loadSpinner.classList.add("hidden");
+  await loadSpinner.classList.add("hidden");
 }
